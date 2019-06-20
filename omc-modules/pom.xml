@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>omc</artifactId>
+        <groupId>com.officeten</groupId>
+        <version>1.0.0</version>
+    </parent>
+
+	<groupId>com.officeten.omc</groupId>
+    <artifactId>omc-modules</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>omc-modules</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <modules>
+<!--        <module>pig-daemon-service</module>-->
+<!--        <module>pig-mc-service</module>-->
+<!--        <module>pig-sso-client-demo</module>-->
+<!--        <module>pig-upms-service</module>-->
+        <module>omc-netty-service</module>
+        <module>omc-backend-service</module>
+    </modules>
+
+</project>

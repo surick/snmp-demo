@@ -1,0 +1,75 @@
+# 指定读取配置文件:dev(开发环境),prod(生产环境),qa(测试环境)
+spring:
+  profiles:
+    active: dev
+  redis:
+    database: 0
+    host: 192.168.184.128
+    port: 6379
+    password:
+    pool:
+      max-active: 8     # 连接池最大连接数（使用负值表示没有限制）
+      max-idle: 8       # 连接池中的最大空闲连接
+      max-wait: -1      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+      min-idle: 0       # 连接池中的最小空闲连接
+    timeout: 0        # 连接超时时间（毫秒）
+
+---
+spring:
+  profiles: dev
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url:  jdbc:mysql://127.0.0.1:3306/snmp?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    username: root
+    password: root123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+# 应用端口配置
+server:
+  port: 8080
+
+---
+spring:
+  profiles: qa
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url:  jdbc:mysql://127.0.0.1:3306/test?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    username: root
+    password: root
+server:
+  port: 8090
+
+---
+spring:
+  profiles: prod
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url:  jdbc:mysql://127.0.0.1:3306/prod?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    username: root
+    password: root
+    sql-script-encoding: utf-8  #指定SQL scripts编码
+    initialize: true  #是不是要初始化这些数据库文件
+    continueOnError: false #有了错误是否继续运行
+
+    initialSize: 5
+    minIdle: 5
+    maxActive: 5
+    maxWait: 60000                                              # 配置获取连接等待超时的时间
+    timeBetweenEvictionRunsMillis: 60000                        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    minEvictableIdleTimeMillis: 300000                          # 配置一个连接在池中最小生存的时间，单位是毫秒
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true                                 # 打开PSCache
+    maxPoolPreparedStatementPerConnectionSize: 20                #指定每个连接上PSCache的大小
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    # useGlobalDataSourceStat: true                                 # 合并多个DruidDataSource的监控数据
+server:
+  port: 8080
